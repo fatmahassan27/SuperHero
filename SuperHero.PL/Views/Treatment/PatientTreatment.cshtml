@@ -1,0 +1,31 @@
+﻿@model List<TreatmentVM>
+@inject IBaseRepsoratory<Person> Doctor
+@{
+    int x = 1;
+}
+@foreach (var item in Model)
+{
+     @if(item.IsAdd ==true){
+        <div class="row">
+            <div class="col-sm-2">
+                @x - Treatment :
+                @{
+                    x++;
+                    item.Doctor = await Doctor.GetByID(item.DoctorID);
+                }
+            </div>
+            <div class="col-sm-5">
+                <p>@item.Name</p>
+            </div>
+            <div class="col-sm-5"><a class="buttons-check" asp-action="Profile" asp-controller="Profile" asp-route-id="@item.Doctor.Id">@item.Doctor.FullName </a>  </div>
+        </div>
+        <br />
+        <hr />
+     }
+   
+    
+}
+
+
+
+

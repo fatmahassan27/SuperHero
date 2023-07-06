@@ -1,0 +1,230 @@
+﻿@model ListGroupVM
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<Person> signInManager
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/PatientLayout/_Layout.cshtml";
+    var userinfo = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
+
+    var UserId = Context.Session.GetInt32("UserId");
+}
+ @section CSS{
+     <style>
+        .Card_Warp .card{
+            display:none
+        }
+     </style>
+ }
+@*<div class="container" style="padding-top:80px;">
+    <div class="row">
+        <div class="col-md-6">
+           
+            <input hidden type="text" value="@userinfo.FullName" id="txtUser" /><br />
+            <span> Enter Your Message : </span><br />
+            <textarea rows="10" cols="40" id="txtMessage"></textarea><br />
+            <button type="submit" id="btnSend" class="btn btn-info">Send Message</button><br /><br />
+
+         
+            <input type="text" id="txtgroup" />
+            <button type="submit" id="btngroup" class="btn btn-info" >Join</button><br />
+           
+            <br />
+            <button type="submit" id="txtSendGroup" class="btn btn-info" >Send To Group</button><br />
+            
+        </div>
+
+        <div class="col-md-6">
+            <h3>Message List : </h3>
+            <ul id="list" class="alert alert-info"> 
+            </ul>
+        </div>
+    </div>
+
+</div>*@
+@section PersonType{
+    @if (signInManager.IsSignedIn(User))
+    {
+        @if (@userinfo.Image == null)
+        {
+            if (@userinfo.gender == 0)
+            {
+                <img src="/files/imgs/men.jpg" alt="" />
+                <input hidden type="text" value="/files/imgs/men.jpg" id="imgPath" />
+            }
+            else
+            {
+
+                <img src="/files/imgs/young-woman-avatar-cartoon-character-profile-picture-young-woman-wearing-blue-t-shirt-avatar-cartoon-character-vector-149732076.jpg" alt="" />
+                <input hidden type="text" value="/files/imgs/young-woman-avatar-cartoon-character-profile-picture-young-woman-wearing-blue-t-shirt-avatar-cartoon-character-vector-149732076.jpg" id="imgPath" />
+            }
+        }
+        else
+        {
+            <a data-fslightbox href="~/files/imgs/@userinfo.Image">
+                <img src="/files/imgs/@userinfo.Image" alt="" />
+            </a>
+            <input hidden type="text" value="/files/imgs/@userinfo.Image" id="imgPath" />
+        }
+    }
+    <div class="acc-txt">
+        <h3>Never Give Up!</h3>
+        <h6>@userinfo.FullName</h6>
+       
+
+    </div>
+    
+}
+@if (Model ==null)
+{
+    <div class="alert alert-info" role="alert">
+        You Not Have Any Group ,Please send To Admin about gmail  To Join Group
+    </div>
+}
+else
+{
+    <div style="display:flex;justify-content:center;align-content:center">
+        @foreach (var item in Model.Groups)
+        {
+            <a asp-action="GetMessage" asp-controller="ChatHub" style="justify-content:center;align-items: center;margin-left:6px;text-decoration:none;font-size:18px; color:#1eb2a6" asp-route-id="@item.Group">
+                <div class="m-2" style="width: 60px; height:60px; border-radius:50%; border: 2px solid #1eb2a6; padding: 1px;">
+                    @if (item.group.Image == null)
+                    {
+                        <img src="~/Files/Imgs/r.jfif" alt="..." class="img-fluid rounded-circle">
+
+                    }
+                    else
+                    {
+                        <img src="~/Files/Imgs/@item.group.Image" alt="..." class="img-fluid rounded-circle">
+
+                    }
+
+
+                </div>
+                <div class="text-small">@item.group.Name</div>
+
+
+            </a>
+        }
+    </div>
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-11 col-lg-11 col-xl-11">
+
+                    <div class="card" id="chat1" style="border-radius: 15px;">
+                        <div style="background:#1eb2a6" class="card-header d-flex justify-content-between align-items-center p-3  text-white border-bottom-0"
+                             style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <i class="fas fa-angle-left"></i>
+                            <p class="mb-0 fw-bold">@TempData["GroupName"]</p>
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <div class="card-body">
+
+                            @foreach (var item in Model.Chat)
+                            {
+                                if (userinfo.Id != item.PersonId)
+                                {
+                                    <div class="d-flex flex-row justify-content-end mb-4">
+                                        <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                                            <p class="small mb-0">@item.Message</p>
+                                        </div>
+                                       
+
+
+                                        @if (@item.Person.Image == null)
+                                        {
+                                            if (@item.Person.gender == 0)
+                                            {
+                                                <img src="/files/imgs/men.jpg" style="width: 45px; height: 100%;" alt="" />
+                                            }
+                                            else
+                                            {
+
+                                                <img src="/files/imgs/young-woman-avatar-cartoon-character-profile-picture-young-woman-wearing-blue-t-shirt-avatar-cartoon-character-vector-149732076.jpg" style="width: 45px; height: 100%;" alt="" />
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a data-fslightbox href="~/files/imgs/@item.Person.Image">
+                                                <img src="~/Files/Imgs/@item.Person.Image"
+                                                     alt="avatar 1" style="width: 45px; height: 100%;">
+                                            </a>
+
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="d-flex flex-row justify-content-start mb-4">
+                                   
+                                    
+                                        @if (@item.Person.Image == null)
+                                        {
+                                            if (@item.Person.gender == 0)
+                                            {
+                                                <img src="/files/imgs/men.jpg" style="width: 45px; height: 100%;" alt="" />
+                                            }
+                                            else
+                                            {
+
+                                                <img src="/files/imgs/young-woman-avatar-cartoon-character-profile-picture-young-woman-wearing-blue-t-shirt-avatar-cartoon-character-vector-149732076.jpg" style="width: 45px; height: 100%;" alt="" />
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a data-fslightbox href="~/files/imgs/@item.Person.Image">
+                                                <img src="~/Files/Imgs/@item.Person.Image"
+                                                     alt="avatar 1" style="width: 45px; height: 100%;">
+                                            </a>
+
+                                        }
+
+                                        <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                            <p class="small mb-0">
+                                                @item.Message
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            }
+                            <div id="list">
+                            </div>
+
+
+
+                            <div class="form-outline">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                    </div>
+                                    <div class="col-sm-8 ">
+                                        <textarea class="form-control" id="txtMessage" rows="4"></textarea>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="submit" id="btnSend" style="margin-top:40px; border:2px solid #1eb2a6 ; border-radius:10px ;color:white;height:30px; background:#1eb2a6">Send Message</button>
+                                    </div>
+                                </div>
+                                <input hidden type="text" value="@userinfo.FullName" id="txtUser" />
+
+                                
+                                <input hidden type="text" value="@UserId" id="UserId" />
+                                <input hidden type="text" value="@userinfo.Id" id="UserInfoID" />
+                                <input hidden type="text" value="@TempData["GroupID"]" id="groupID" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+}
+
+<script src="~/datatable/lib/jquery/dist/jquery.js"></script>
+<script src="~/chat/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+<script src="~/chat/js/admin.js"></script>

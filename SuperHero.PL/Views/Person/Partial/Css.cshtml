@@ -1,0 +1,323 @@
+﻿
+<style>
+    th, td {
+        text-align: center;
+    }
+
+    .show .dropdown-menu a {
+        text-align: center;
+    }
+
+    .imag {
+        width: 70px;
+        height: 70px;
+    }
+
+    .Image {
+        width: 100%;
+        height: 100%;
+       
+    }
+
+    .file-upload {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .table thead{
+        background-color: #1EB2A6;
+        color: white;
+       
+    }
+
+        .table tbody tr:nth-child(even) {
+        background-color: #c8d6d6;
+        
+        }
+    .input {
+        height: 50px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .card-header{
+        background: #1EB2A6;
+        color:white;
+        font-style:bold
+    }
+
+    .file-upload_button {
+        padding: 12px 16px;
+        border-radius: 3px;
+        background: #1EB2A6;
+        color: #fff;
+    }
+
+    .file-upload_result {
+        padding: 14px;
+    }
+
+    .btn1 {
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        border: 2px solid #1EB2A6;
+        border-radius: 0.6em;
+        color: #3998db;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-self: center;
+        -ms-flex-item-align: center;
+        align-self: center;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1;
+        margin: 20px;
+        padding: 1.2em 2.8em;
+        text-decoration: none;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        margin:0 auto
+    }
+
+        .btn1:hover, .btn1:focus {
+            color: #1EB2A6;
+            outline: 0;
+        }
+
+    .third {
+         text-align: center;
+        border-color: #1EB2A6;
+        color: white;
+        box-shadow: 0 0 40px 40px #1EB2A6 inset, 0 0 0 0 #1EB2A6;
+        -webkit-transition: all 150ms ease-in-out;
+        transition: all 150ms ease-in-out;
+    }
+
+        .third:hover {
+            box-shadow: 0 0 10px 0 #1EB2A6 inset, 0 0 10px 4px #1EB2A6;
+        }
+    /* Start Override Bootbox */
+
+    .bootbox-close-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0.5rem 0.75rem;
+        z-index: 1;
+        background-color: transparent;
+        border: 0;
+        font-size: 20px;
+        margin-bottom: 10px;
+        -webkit-appearance: none;
+    }
+
+    /* End Override Datatable */
+   .dataTables_wrapper .dt-buttons {
+ border-radius:50%
+}
+    .dt-buttons{
+        border-radius:50%
+    }
+        .buttons-copy {
+        background-color: #032535;
+        border: 2px solid #032535;
+        color: white;
+        margin: 10px;
+        border-radius:50%
+    }
+
+        .buttons-copy:hover {
+        background-color: transparent;
+            border: 2px solid #032535;
+            color: #032535;
+        margin: 10px;
+        border-radius: 50%
+    }
+
+    .buttons-csv {
+        background-color: #146C94;
+        border: 2px solid #146C94;
+        color: white;
+      
+        margin: 10px;
+    }
+
+        .buttons-csv:hover {
+            background-color: transparent;
+            border: 2px solid #146C94;
+            color: #146C94;
+        }
+
+        .buttons-excel,.buttons-check {
+        background-color: #19A7CE;
+        border: 2px solid #19A7CE;
+        color: white;
+        margin: 10px;
+    }
+
+            .buttons-excel:hover ,.buttons-check:hover{
+            background-color: transparent;
+            border: 2px solid #19A7CE;
+            color: #19A7CE ;
+            margin: 10px;
+        }
+
+    .buttons-pdf {
+        
+        margin: 10px;
+        background-color: #AFD3E2;
+        border: 2px solid #AFD3E2;
+        color: #fff;
+    }
+
+        .buttons-pdf:hover {
+            background-color: transparent;
+            border: 2px solid #AFD3E2;
+            color: #AFD3E2;
+            margin: 10px;
+        }
+
+    .buttons-print {
+       
+        margin: 10px;
+        background-color: #B9EDDD;
+        border: 2px solid #B9EDDD;
+        color: #fff;
+    }
+
+        .buttons-print:hover {
+            background-color: transparent;
+            border: 2px solid #B9EDDD;
+            color: #B9EDDD ;
+            margin: 10px;
+        }
+
+
+
+   
+    .dropbtn {
+        background-color: #1EB2A6;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .create:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown:hover .dropbtn {
+        background-color: #1EB2A6;
+    }
+    /* Style the dropdown toggle */
+    .dropdown-toggle1 {
+        display: inline-block;
+        padding: 10px;
+        background-color: #f1f1f1;
+        color: #333;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Hide the dropdown menu by default */
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 150px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+        /* Style the dropdown menu items */
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            .dropbtn
+
+    {
+        background-color: #3498DB;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropbtn:hover, .dropbtn:focus {
+        background-color: #2980B9;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+
+    .show {
+        display: block;
+    }
+</style>

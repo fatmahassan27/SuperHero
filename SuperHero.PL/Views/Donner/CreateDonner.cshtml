@@ -1,0 +1,226 @@
+﻿@model PersonVM
+@inject IServiesRep servis
+@{
+    ViewData["Title"] = $"Donner";
+    Layout = "~/Views/AdminLayout/_Layout.cshtml";
+}
+
+
+<div class="card shadow-sm ">
+
+    <div class="card-header">
+        <h3 class="card-title">Create Donner</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2 ">
+            </div>
+            <div class="col-md-8">
+                <a>@TempData["error"]</a>
+                <div asp-validation-summary="All"></div>
+                <form method="post" asp-controller="Donner" asp-action="CreateDonner" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-4 ">
+                        </div>
+                        <div class="col-md-4 ">
+                            <div class="image-input image-input-empty mb-10" data-kt-image-input="true" style="background-image:url(/files/imgs/men.jpg);margin:auto">
+                                <div class="image-input-wrapper w-250px h-250px"></div>
+                                <label class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                                       data-kt-image-input-action="change"
+                                       data-bs-dismiss="click">
+                                    <i class="uil uil-pen"></i>
+
+                                    <input type="file" asp-for="ImageName" accept=".png, .jpg, .jpeg" />
+                                    <input type="hidden" asp-for="ImageName" name="avatar_remove" />
+
+                                </label>
+
+                                <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                                      data-kt-image-input-action="cancel"
+                                      data-bs-dismiss="click">
+                                    <i class="uil uil-times-circle"></i>
+                                </span>
+
+                                <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                                      data-kt-image-input-action="remove"
+                                      data-bs-dismiss="click">
+                                    <i class="bi bi-x fs-2"></i>
+                                </span>
+
+                            </div>
+                            <span asp-validation-for="Image" class="text-danger d-block"></span>
+                        </div>
+                        <div class="col-md-4 ">
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" placeholder="Name" asp-for="FullName" />
+                            <label>Full Name</label>
+                        </div>
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" placeholder="Email" asp-for="Email" />
+                            <label>Email</label>
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    
+                        <div class="mb-5">
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control" placeholder="UserName" asp-for="UserName" />
+                                <label>User Name</label>
+                            </div>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-5">
+                            <div class="form-floating mb-2">
+                                <input type="password" asp-for="PasswordHash" class="form-control" placeholder="passward" asp-for="PasswordHash" />
+                                <label>Password</label>
+                            </div>
+                            <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                        </div>
+                   
+                        <div class="mb-5">
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control" placeholder="DonationType" asp-for="doner.DonationType" />
+                                <label>Donation Type</label>
+                            </div>
+                            <span asp-validation-for="doner.DonationType" class="text-danger"></span>
+                        </div>
+                    
+
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <select asp-for="gender" class="form-select" aria-label="Default select example">
+                                <option>Gender</option>
+                                <option value="0">Male</option>
+                                <option value="1">Female</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <select class="form-control select" id="GoverList">
+                                <option>Governate</option>
+                                @foreach (var item in await servis.GetGovAsync())
+                                {
+
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control select" id="CityList">
+                                <option>City</option>
+
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select asp-for="districtID" class="form-control select">
+                                <option>District</option>
+
+                            </select>
+                            <span class="text-danger" asp-validation-for="districtID"></span>
+                        </div>
+                    </div>
+
+                    <br />
+                 
+                        <center>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="uil uil-check"></i>Save
+                            </button>
+
+                            <a asp-action="GetAll" asp-controller="Person" class="btn btn-danger">return</a>
+                        </center>
+                  
+
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2 ">
+        </div>
+    </div>
+</div>
+
+@section CSS{
+    <partial name="~/views/person/Partial/css.cshtml" />
+    <link href="~/dashboard/lib/style.bundle.css" rel="stylesheet" />
+    <link href="~/dashboard/lib/select2/css/select2.min.css" rel="stylesheet" />
+}
+    @section JqueryValidation{
+    <partial name="~/views/person/Partial/Script.cshtml" />
+    <script src="~/dashboard/lib/plugins.bundle.js"></script>
+    <script src="~/dashboard/lib/sweetalert2/scripts.bundle.js"></script>
+    <script src="~/dashboard/lib/select2/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.form-select').select2();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $("#GoverList").change(function () {
+
+                var goverList = $("#GoverList option:selected").val();
+                $("#CityList").empty();
+
+                $.ajax({
+                    type: "post",
+                    url: "/Person/GetCityBtGonvId",
+                    data: { goverId: goverList },
+                    cash: false,
+
+                    success: function (res) {
+                        console.log(res);
+
+                        $.each(res, function (i, e) {
+                            if (typeof res == "string") {
+                                console.log(res.message);
+                            }
+                            $("#CityList").append("<option value='" + e.ID + "'>" + e.Name + "</option>")
+                        });
+                        $("select").selectpicker("refresh");
+                    },
+                    error: function (x, m, z) {
+
+                        console.log(x);
+                        console.log(m);
+                        console.log(z);
+                    }
+                });
+            });
+            $("#CityList").change(function () {
+
+                var Cityid = $("#CityList option:selected").val();
+                $("#districtID").empty();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Person/GetDistricByIdCity",
+                    data: { CityId: Cityid },
+                    success: function (res) {
+                        $.each(res, function (i, e) {
+                            $("#districtID").append("<option value='" + e.Id + "'>" + e.Name + "</option>")
+                        });
+                        $("select").selectpicker("refresh");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+}

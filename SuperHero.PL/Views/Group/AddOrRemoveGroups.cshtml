@@ -1,0 +1,102 @@
+﻿@model List<GroupInRoleVM>
+
+@{
+    ViewData["Title"] = "AddOrRemoveGroups";
+    var RoleId = ViewBag.Id;
+    Layout = "~/Views/AdminLayout/_Layout.cshtml";
+}
+
+<h1></h1>
+
+
+<form method="post" class="form-group">
+    <div class="row">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4">
+            <input type="submit" style="text-align:center" value="  Add Person" class=" btn1 third  w-75" />
+        </div>
+
+
+    </div>
+    <br />
+    <br />
+    <table id="example" class="table" style="width:100%;color:darkgrey">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Full Name</th>
+
+                <th>User Name</th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+            <td>
+                    @if (@Model[i].Image == null)
+                    {
+                        if (@Model[i].gender == 0)
+                        {
+                        <div class="Image" style="background-image:url('/files/imgs/men.jpg') ; width:50px ; height:50px ; border-radius : 50%;background-size:cover;margin:auto; background-position:center; background-repeat:no-repeat ;">
+                        </div>
+
+                        }
+                        else
+                        {
+                        <div class="Image" style="background-image:url('/files/imgs/young-woman-avatar-cartoon-character-profile-picture-young-woman-wearing-blue-t-shirt-avatar-cartoon-character-vector-149732076.jpg') ; width:50px;margin:auto ; height:50px ; border-radius : 50%;background-size:cover; background-position:center; background-repeat:no-repeat ;">
+                        </div>
+
+                        }
+                    }
+                    else
+                    {
+                    <div class="Image" style="background-image:url('/files/imgs/@Model[i].Image') ; width:50px ; height:50px ; border-radius : 50%;background-size:cover;margin:auto; background-position:center; background-repeat:no-repeat ;">
+                    </div>
+                    }
+
+
+            </td>
+            <td>
+                    @Model[i].FullName
+            </td>
+            <td>
+                <label asp-for="@Model[i].IsSelected">@Model[i].Name</label>
+            </td>
+            <td>
+                <input asp-for="@Model[i].IsSelected" type="checkbox" class="filled-in">
+
+
+                <input type="hidden" asp-for="@Model[i].Id" />
+                <input type="hidden" asp-for="@Model[i].Name" />
+            </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+   
+
+
+</form>
+
+<a asp-controller="Roles" asp-action="Edit" asp-route-id="@RoleId">Cancle</a>
+
+@section CSS{
+    <partial name="~/views/person/Partial/css.cshtml" />
+    <style>
+        div.dataTables_wrapper div.dataTables_filter input {
+            width:75%;
+            margin-right:30px
+            
+        }
+    </style>
+}
+    @section JqueryValidation{
+    <partial name="~/views/person/Partial/Script.cshtml" />
+}

@@ -1,0 +1,74 @@
+﻿@{
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+}
+@if (Culture == "ar-EG")
+{
+    <link href="~/Ar.css" rel="stylesheet" />
+}
+else
+{
+    <link href="~/En.css" rel="stylesheet" />
+}
+<header>
+    <div id="logo">
+        <a style=" text-decoration:none;" href="#">
+            <span id="span1">Super</span><span id="span2">Heros</span>
+        </a>
+    </div>
+    <nav id="navbar">
+        <div id="quit">
+            <i class="fa fa-times" aria-hidden="true" onclick="toggle()"></i>
+        </div>
+        <ul>
+            <li><a style=" text-decoration:none;" asp-action="Problem" asp-controller="Problem"> @SharedLocalizer["Problem"]</a></li>
+            <li><a style=" text-decoration:none;" asp-action="Index" asp-controller="BestDoctor"> @SharedLocalizer["about"]</a></li>
+            <li><a style=" text-decoration:none;" asp-action="Index" asp-controller="BestDoctor"> @SharedLocalizer["contact"]</a></li>
+            <li>
+                <div class="dropdown">
+                    <i style="font-size:30px;color:#1EB2A6;cursor:pointer" class="fa-solid fa-language"></i>
+                   @* <i class="fa-solid fa-list dropbtn" onclick="myFunction()"></i>*@
+                    <div style="text-align:center" id="myDropdown" class="dropdown-content">
+
+                        @if (Culture == "ar-EG")
+                        {
+                            
+                                <a class="dropdown-item d-flex justify-content-between"
+                                   href="@Url.Action("SetLanguage", "Language", new {
+                                                                          culture = "en-US",
+                                                                          returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                                      })">
+
+                                 @SharedLocalizer["English"]
+                                </a>
+                            
+                                    }
+                        else
+                        {
+                            
+                                <a class="dropdown-item d-flex justify-content-between"
+                                   href="@Url.Action("SetLanguage", "Language", new {
+                                                                          culture = "ar-EG",
+                                                                          returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                                      })">
+
+                                    @SharedLocalizer["Arabic"]
+                                </a>
+                            
+                        }
+                            @*<a style=""><i class="fa-solid fa-spell-check"></i>Arabic</a>
+                            <a ><i class="fa-solid fa-trash-can"></i> English</a>
+                       *@
+                    </div>
+                </div>
+            </li>
+
+            <li><a style=" text-decoration:none;" class="Register" data-toggle="modal" data-target="#exampleModal" style="text-decoration:none"> @SharedLocalizer["Login"]</a></li>
+
+        </ul>
+    </nav>
+    <div id="bars" onclick="toggle()">
+        <div class="bar b"></div>
+        <div class="bar"></div>
+        <div class="bar b"></div>
+    </div>
+</header>

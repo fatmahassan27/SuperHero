@@ -1,0 +1,127 @@
+﻿@model IEnumerable<CourseVM>
+@using Microsoft.AspNetCore.Identity;
+@using SuperHero.BL.Seeds;
+@inject SignInManager<Person> signInManager
+
+@{
+    var userinfo = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
+
+}
+@{
+    ViewData["Title"] = "GetALL";
+    Layout = "~/Views/AdminLayout/_Layout.cshtml";
+}
+@section CSS{
+    <partial name="~/views/person/Partial/css.cshtml" />
+    <partial name="~/views/post/CSS.cshtml">
+}
+        <a class="btn1 third col-sm-3  me-2 js-friends" data-url="/Course/Create" href="javascript:;"> &nbsp; &nbsp; &nbsp;<i class="uil uil-create-dashboard "></i> &nbsp; Create</a>
+    <br />
+    <br />
+    <table id="example" class="table" style="width:100%;color:darkgrey">
+        <thead>
+            <tr>
+
+                <th>Name</th>
+
+                <th>createdTime</th>
+
+                <th>Hours</th>
+                <th>Lesson</th>
+                <th>Category</th>
+                <th></th>
+                <th>IsDeleted</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.NameCourse</td>
+
+                <td>@item.DateOfPuplish</td>
+
+                <td>@item.Hours</td>
+                    <td>@item.Lessons.Count</td>
+                <td>@item.Catogery.CategoryName</td>
+
+                @*   <td class="danger">
+            <span style='color:@(item.IsDelete ? "#f1416c" : "#50cd89");background:@(item.IsDelete ? "#fff5f8" : "#e8fff3");font-size:15px;font-weight: bold'>
+            @(item.IsDelete ? "Deleted" : "Available")
+            </span>
+
+            </td>
+            *@
+                <td>
+                    @if (@item.Image == null)
+                    {
+
+
+                        <div class="Image" style="background-image:url('/files/Courses/no-book.jpg') ; width:90px ; height:90px ;background-size:cover; background-position:center; background-repeat:no-repeat ;">
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="Image" style="background-image:url('/files/Courses/@item.Image') ; width:90px ; height:90px ;background-size:cover; background-position:center; background-repeat:no-repeat ;">
+                        </div>
+
+                    }
+
+
+                </td>
+                <td class="danger">
+                        <span class="js-status  badge rounded-pill bg-@(item.IsDelete ? "danger" : "success")" style='color:white;'>
+                        @(item.IsDelete ? "Deleted" : "Available")
+                    </span>
+
+                </td>
+                <td>
+                    @if (item.PersonId == userinfo.Id || await signInManager.UserManager.IsInRoleAsync(userinfo, AppRoles.Admin))
+                    {
+                            <div class="dropdown">
+                                <p class="btn dropbtn btn-outline-info" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </p>
+
+                                <div class="dropdown-menu dropdown-content  align-items-center " aria-labelledby="dropdownMenuLink">
+                                    <a class="js-friends dropdown-item" href="javascript:;" data-url="/Course/Edite/@item.ID" data-update="true">Edite</a>
+
+
+
+                                    <a class="js-friends dropdown-item" href="javascript:;" data-url="/Lesson/Create/@item.ID" data-update="true">Add Lesson</a>
+
+
+
+                                    <a style="text-align: center" class="dropdown-item js-Course-status" href="javascript:;" data-id="@item.ID">
+
+                                        Toggel status
+                                    </a>
+
+
+                                </div>
+                            </div>
+                    }
+                   
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+
+</table>
+
+
+
+                <partial name="~/views/post/Model.cshtml">
+            @section JS{
+                    <partial name="~/views/post/scripts.cshtml">
+
+                        <partial name="~/views/person/Partial/script.cshtml" />
+               <script src="~/dashboard/lib/bootbox.js/bootbox.min.js"></script>
+
+                    }
+         

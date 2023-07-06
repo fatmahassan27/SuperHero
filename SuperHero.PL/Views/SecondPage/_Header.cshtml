@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<Person> signInManager
+@{
+
+}
+<header>
+    <div id="logo">
+        <a href="#">
+            <span id="span1">Super</span><span id="span2">Heros</span>
+        </a>
+    </div>
+    <nav id="navbar">
+        <div id="quit">
+            <i class="fa fa-times" aria-hidden="true" onclick="toggle()"></i>
+        </div>
+        <ul>
+            <li><a asp-action="Login" asp-controller="Account">@SharedLocalizer["Home"]</a></li>
+
+            <li><a href="#section-2">@SharedLocalizer["about"]</a></li>
+            <li><a href="#Footer">@SharedLocalizer["contact"]</a></li>
+            <li><a asp-action="Problem" asp-controller="Problem">@SharedLocalizer["Problem"]</a></li>
+            @if (signInManager.IsSignedIn(User))
+            {
+                var userinfo = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
+                <li><a asp-action="Profile" asp-controller="MyProfile" asp-route-id="@userinfo.Id">@SharedLocalizer["Profile"]</a></li>
+            }
+
+
+
+        </ul>
+    </nav>
+    <div id="bars" onclick="toggle()">
+        <div class="bar b"></div>
+        <div class="bar"></div>
+        <div class="bar b"></div>
+    </div>
+
+</header>
+<div class="content">
+    <div class="left">
+        <h1><span>Super H</span>eroes</h1>
+
+        <p style="color:rgb(99, 99, 99)">@SharedLocalizer["AimoftheWeb"]</p>
+        <div style="background-color: white ; border:2px solid #82DBDB;" class="btn" id="btn_play">
+            <a style="color:#82DBDB ;" asp-action="Login" asp-controller="Account">@SharedLocalizer["Login"]</a>
+        </div>
+        <div class="btn" id="btn_play">
+            <a asp-action="Registration" asp-controller="Patient">@SharedLocalizer["Register"]</a>
+        </div>
+    </div>
+    <div class="right">
+        <div class="box">
+            <img src="~/secondpage/vendor/Image/Insurance-amico.svg" alt="Book" class="book">
+        </div>
+    </div>
+</div>
